@@ -1,4 +1,32 @@
-﻿@{
+﻿@model List<ExerciceMVC.Models.Contact>
+@{
     ViewData["Title"] = "Liste des Contacts";
 }
-<h1>📄 Liste des Contacts</h1>
+
+<div class="container mt-5">
+    <h1 class="text-center">📋 Liste des Contacts</h1>
+    <table class="table table-striped mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(m => m[0].Name)</th>
+                <th>@Html.DisplayNameFor(m => m[0].Email)</th>
+                <th>@Html.DisplayNameFor(m => m[0].Phone)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <td>@contact.Name</td>
+                    <td>@contact.Email</td>
+                    <td>@contact.Phone</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@contact.Id" class="btn btn-info btn-sm">Détails</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Add" class="btn btn-success">➕ Ajouter un Contact</a>
+</div>

@@ -1,4 +1,14 @@
-﻿@{
+﻿@model ExerciceMVC.Models.Contact
+@{
     ViewData["Title"] = "Détails du Contact";
 }
-<h1>📇 Détails du Contact</h1>
+
+<div class="container mt-5">
+    <h1>📇 Détails de @ViewBag.ContactName</h1>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Nom :</strong> @Model.Name</li>
+        <li class="list-group-item"><strong>Email :</strong> @Model.Email</li>
+        <li class="list-group-item"><strong>Téléphone :</strong> @Model.Phone</li>
+    </ul>
+    <a asp-action="Index" class="btn btn-secondary mt-3">⬅️ Retour à la liste</a>
+</div>
