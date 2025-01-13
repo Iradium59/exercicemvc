@@ -7,17 +7,17 @@ namespace ExerciceMVC.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Je suis la page pour afficher les contacts...");
+            return View();
         }
 
         public IActionResult Details(int id)
         {
-            return Content($"Je suis la page pour afficher le contact avec l'ID : {id}...");
+            return View();
         }
 
         public IActionResult Add()
         {
-            return Content("Je suis la page pour ajouter un contact...");
+            return View();
         }
     }
 }
