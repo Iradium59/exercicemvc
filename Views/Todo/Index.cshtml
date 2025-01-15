@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ExerciceMVC.Models.Todo>
 
 @{
-	ViewData["Title"] = "Index";
+	ViewData["Title"] = "Todo List";
 }
 
 <table class="table">
@@ -18,10 +18,10 @@
         @foreach (var item in Model)
         {
             <tr style="cursor: pointer;" onclick="location.href='@Url.Action("Details", new { id = item.Id })'">
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.Title)</td>
-                <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                <td>@Html.DisplayFor(modelItem => item.status)</td>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td>@item.Description</td>
+                <td>@item.status</td>
                 <td>
                     @if (item.status == "Fini")
                     {
@@ -40,3 +40,29 @@
         }
     </tbody>
 </table>
+
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)">Précédent</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+            </li>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)">Suivant</a>
+            </li>
+        }
+    </ul>
+</nav>

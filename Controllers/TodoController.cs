@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ExerciceMVC.Data;
 using ExerciceMVC.Models;
+using System.Drawing.Printing;
 
 namespace ExerciceMVC.Controllers
 {
     public class TodoController : Controller
     {
         private readonly ExerciceMVCContext _context;
+        private const int PageSize = 5;
 
         public TodoController(ExerciceMVCContext context)
         {
@@ -20,9 +22,20 @@ namespace ExerciceMVC.Controllers
         }
 
         // GET: Todo
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int page = 1)
         {
-            return View(await _context.Todo.ToListAsync());
+            var totalItems = _context.Todo.Count();
+
+            var todos = _context.Todo
+                .OrderBy(t => t.Id) 
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize)
+                .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / PageSize);
+
+            return View(todos);
         }
 
         // GET: Todo/Details/5
